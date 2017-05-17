@@ -19,6 +19,7 @@ n = os.write(pipeout, sys.argv[1]+"\n")
 pipein = open(fifo_client, 'r')
 if pipein == None:
     print("can't open %s" % fifo_client);
+    exit(1)
 
 line = pipein.readline()
 print(line),

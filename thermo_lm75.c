@@ -70,11 +70,11 @@ void start_server()
             shortbuf = TEMP_REG;
             if (write(devfd, &shortbuf, 1) != 1) {
                 syslog(LOG_WARNING, "error writing to i2c device(%d), continue\n", devfd);
-                continue;
+                goto closecli;
             }
             if (read(devfd, &shortbuf, 2) != 2) {
                 syslog(LOG_WARNING, "error reading from i2c device(%d), continue\n", devfd);
-                continue;
+                goto closecli;
             }
 
             shortbuf = ((shortbuf >> 8) | (shortbuf << 8));
@@ -84,9 +84,10 @@ void start_server()
 
             if ((n = write(clientfd, buf, strlen(buf))) != strlen(buf)) {
                 syslog(LOG_WARNING, "error writing response to client, discarding\n");
-                continue;
+                goto closecli;
             }
 
+closecli:
             close(clientfd);
 
         } else {
