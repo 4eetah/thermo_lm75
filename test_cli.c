@@ -23,7 +23,9 @@ static void removefifo()
 int main(int argc, char **argv)
 {
     if (argc != 2) {
-        fprintf(stderr, "Usage: %s <request>\n", argv[0]);
+        fprintf(stderr, "Usage: %s <cmd>\n", argv[0]);
+        fprintf(stderr, "Available commands:\n");
+        fprintf(stderr, "TEMPERATURE - get the temperature in Celcius\n");
         exit(1);
     }
 
